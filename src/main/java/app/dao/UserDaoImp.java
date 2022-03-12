@@ -63,16 +63,22 @@ public class UserDaoImp implements UserDao {
     @Bean
     public void createAdmin() {
         try {
-            loadUserByUsername("admin").isEnabled();
+            loadUserByUsername("admin@mail.ru").isEnabled();
         } catch (Exception e) {
             Collection<Role> roles = new ArrayList<>();
-            Role role = new Role();
-            role.setRole("ROLE_ADMIN");
-            roles.add(role);
+            Role roleAdmin = new Role();
+            roleAdmin.setRole("ROLE_ADMIN");
+            roles.add(roleAdmin);
+            Role roleUser = new Role();
+            roleUser.setRole("ROLE_USER");
+            roles.add(roleUser);
             User admin = new User();
             admin.setRoles(roles);
-            admin.setUsername("admin");
+            admin.setUsername("admin@mail.ru");
             admin.setPassword("admin");
+            admin.setFirstName("admin");
+            admin.setLastName("admin");
+            admin.setAge(35);
             sessionFactory.getCurrentSession().saveOrUpdate(admin);
         }
 

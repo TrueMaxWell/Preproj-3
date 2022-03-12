@@ -1,10 +1,12 @@
 package app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
@@ -17,12 +19,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "email")
     private String username;
 
     @Column(name = "password")
     private String password;
 
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "age")
+    private long age;
+
+    @JsonIgnore
     @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
             name = "users_roles",

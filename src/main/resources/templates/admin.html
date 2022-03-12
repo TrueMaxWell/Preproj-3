@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <link rel="icon" href="https://img.icons8.com/color/452/spring-logo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="https://img.icons8.com/color/452/spring-logo.png" type="image/x-icon" />
+
+    <title>Admin panel</title>
 </head>
 <body>
 
@@ -130,7 +133,7 @@
                                         <label for="age" class="form-label"><h5>Age</h5></label>
                                         <div class="row">
                                             <div class="col-4"></div>
-                                            <input class="form-control col-4" id="age" placeholder="Age">
+                                            <input type="number" class="form-control col-4" id="age" placeholder="Age">
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
@@ -226,11 +229,13 @@
                 <form>
                     <div class="form-group text-center">
                         <label for="first-name" class="form-label"><h5>ID</h5></label>
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <input class="form-control col-6" id="first-name">
-                            <div class="col-3"></div>
-                        </div>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input class="form-control col-6" id="first-name" placeholder="ID">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
                         <br>
                         <label for="first-name" class="form-label"><h5>First Name</h5></label>
                         <div class="row">
@@ -249,7 +254,7 @@
                         <label for="age" class="form-label"><h5>Age</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input class="form-control col-6" id="age">
+                            <input type="number" class="form-control col-6" id="age">
                             <div class="col-3"></div>
                         </div>
                         <br>
@@ -296,5 +301,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="test.js"></script>
 </body>
 </html>
