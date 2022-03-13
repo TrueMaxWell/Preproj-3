@@ -20,7 +20,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "email")
-    private String username;
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(name = "age")
-    private long age;
+    private Long age;
 
     @JsonIgnore
     @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
@@ -68,4 +68,10 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
 }

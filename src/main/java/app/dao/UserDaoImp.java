@@ -54,9 +54,9 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User loadUserByUsername(String username) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from User where username = :username");
-        query.setParameter("username",username);
+    public User loadUserByUsername(String email) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from User where email = :email");
+        query.setParameter("email",email);
         return (User) query.uniqueResult();
     }
 
@@ -74,11 +74,11 @@ public class UserDaoImp implements UserDao {
             roles.add(roleUser);
             User admin = new User();
             admin.setRoles(roles);
-            admin.setUsername("admin@mail.ru");
+            admin.setEmail("admin@mail.ru");
             admin.setPassword("admin");
             admin.setFirstName("admin");
             admin.setLastName("admin");
-            admin.setAge(35);
+            admin.setAge(35L);
             sessionFactory.getCurrentSession().saveOrUpdate(admin);
         }
 

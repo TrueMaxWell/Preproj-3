@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
                 .and()
                 .formLogin()
-//                .usernameParameter("email")
+                .usernameParameter("email")
                 .permitAll()
                 .successHandler(successUserHandler)
                 .and()
@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/");
+        http.csrf().disable();
 
     }
 
