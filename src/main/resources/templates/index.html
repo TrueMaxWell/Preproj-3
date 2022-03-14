@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<!--    <link rel="icon" href="https://img.icons8.com/color/452/spring-logo.png" type="image/x-icon"/>-->
+    <!--    <link rel="icon" href="https://img.icons8.com/color/452/spring-logo.png" type="image/x-icon"/>-->
     <link rel="shortcut icon" href="https://img.icons8.com/color/452/spring-logo.png" type="image/x-icon"/>
 
     <title>Admin panel</title>
@@ -49,7 +49,8 @@
                 <br>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#users-table" data-toggle="tab">Users table</a>
+                        <a class="nav-link active" href="#users-table" data-toggle="tab" id="usersTableSwitch">Users
+                            table</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#new-user" data-toggle="tab">New User</a>
@@ -62,7 +63,7 @@
                             <div class="card-header">
                                 <h3>All users</h3>
                             </div>
-                            <div class="card-body"  id="allUsersTable">
+                            <div class="card-body" id="allUsersTable">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover">
                                         <thead>
@@ -144,7 +145,9 @@
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
-                                        <button type="button" id="createNewUser" onclick="addNewUser()" class="btn btn-success btn-lg">Add new
+                                        <button type="button" id="createNewUser"
+                                                onclick="addNewUser(), location.reload()"
+                                                class="btn btn-success btn-lg">Add new
                                             user
                                         </button>
                                     </div>
@@ -195,14 +198,14 @@
     </div>
 </div>
 
-<!--модальное окно-->
+<!--модальное окно edit-->
 <!--todo-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit user</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -210,54 +213,54 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group text-center">
-                        <label for="id" class="form-label"><h5>ID</h5></label>
+                        <label for="editUserId" class="form-label"><h5>ID</h5></label>
                         <fieldset disabled>
                             <div class="row">
                                 <div class="col-3"></div>
-                                <input class="form-control col-6" id="id" placeholder="ID">
+                                <input class="form-control col-6" id="editUserId" placeholder="ID">
                                 <div class="col-3"></div>
                             </div>
                         </fieldset>
                         <br>
-                        <label for="first-name" class="form-label"><h5>First Name</h5></label>
+                        <label for="editUserFirstName" class="form-label"><h5>First Name</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input class="form-control col-6" id="first-name">
+                            <input class="form-control col-6" id="editUserFirstName">
                             <div class="col-3"></div>
                         </div>
                         <br>
-                        <label for="last-name" class="form-label"><h5>Last Name</h5></label>
+                        <label for="editUserLastName" class="form-label"><h5>Last Name</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input class="form-control col-6" id="last-name">
+                            <input class="form-control col-6" id="editUserLastName">
                             <div class="col-3"></div>
                         </div>
                         <br>
-                        <label for="age" class="form-label"><h5>Age</h5></label>
+                        <label for="editUserAge" class="form-label"><h5>Age</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input type="number" class="form-control col-6" id="age">
+                            <input type="number" class="form-control col-6" id="editUserAge">
                             <div class="col-3"></div>
                         </div>
                         <br>
-                        <label for="email" class="form-label"><h5>Email</h5></label>
+                        <label for="editUserEmail" class="form-label"><h5>Email</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input type="email" class="form-control col-6" id="email">
+                            <input type="email" class="form-control col-6" id="editUserEmail">
                             <div class="col-3"></div>
                         </div>
                         <br>
-                        <label for="password" class="form-label"><h5>Password</h5></label>
+                        <label for="editUserPassword" class="form-label"><h5>Password</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <input type="password" class="form-control col-6" id="password">
+                            <input type="password" class="form-control col-6" id="editUserPassword">
                             <div class="col-3"></div>
                         </div>
                         <br>
-                        <label for="role"><h5>Role</h5></label>
+                        <label for="editUserRole"><h5>Role</h5></label>
                         <div class="row">
                             <div class="col-3"></div>
-                            <select multiple class="form-control col-6" id="role" size="2">
+                            <select multiple class="form-control col-6" id="editUserRole" size="2">
                                 <option value="ROLE_ADMIN">ADMIN</option>
                                 <option value="ROLE_USER">USER</option>
                             </select>
@@ -267,8 +270,88 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Edit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editCloseButton">Close</button>
+                <button type="button" class="btn btn-primary" id="editConfirmButton">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--модальное окно delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group text-center deleteUser">
+                        <label for="deleteUserId" class="form-label"><h5>ID</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input class="form-control col-6" id="deleteUserId">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <label for="deleteUserFirstName" class="form-label"><h5>First Name</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input class="form-control col-6" id="deleteUserFirstName">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <label for="deleteUserLastName" class="form-label"><h5>Last Name</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input class="form-control col-6" id="deleteUserLastName">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <label for="deleteUserAge" class="form-label"><h5>Age</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input type="number" class="form-control col-6" id="deleteUserAge">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <label for="deleteUserEmail" class="form-label"><h5>Email</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <input type="email" class="form-control col-6" id="deleteUserEmail">
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <label for="deleteUserRole"><h5>Role</h5></label>
+                        <fieldset disabled>
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <select multiple class="form-control col-6" id="deleteUserRole" size="2">
+                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                    <option value="ROLE_USER">USER</option>
+                                </select>
+                                <div class="col-3"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="deleteUserClose">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirmButton">Delete</button>
             </div>
         </div>
     </div>
@@ -286,42 +369,48 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script type="text/javascript">
-    function showUsers (){
-        $(function (){
-            var $user = $('#user');
-            $.ajax({
-                type: 'GET',
-                url: 'get',
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (users) {
-                    console.log("Data connected!", users)
-                    var userRole;
+    function showUsers() {
+        var table = $('#user');
+        $.ajax({
+            type: 'GET',
+            url: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (users) {
+                console.log("Data connected!", users)
+                table.empty()
+                var userRole;
 
-                    $.each(users, function (i, user) {
-                        if(user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
-                            userRole = 'ADMIN USER'
-                        } else {
-                            userRole = 'USER'
-                        }
-                        $user.append('<tr><td>' + user.id +
-                            '</td><td>' + user.firstName +
-                            '</td><td>' + user.lastName +
-                            '</td><td>' + user.age +
-                            '</td><td>' + user.email +
-                            '</td><td>' + userRole +
-                            '</td><td>' +
-                            '<button class="btn btn-info" role="button" data-toggle="modal"' +
-                            ' data-target="#exampleModal">Edit</button>' +
-                            '</td>' +
-                            '<td>' +
-                            '<button class="btn btn-danger" role="button" data-toggle="modal"' +
-                            ' data-target="#exampleModal" onclick="deleteUser(user.id)">Delete</button></td></tr>' )
-                    })
-                }
-            })
-        });
-
+                $.each(users, function (i, user) {
+                    if (user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
+                        userRole = "ADMIN USER"
+                    } else {
+                        userRole = "USER"
+                    }
+                    table.append('<tr><td>' + user.id +
+                        '</td><td>' + user.firstName +
+                        '</td><td>' + user.lastName +
+                        '</td><td>' + user.age +
+                        '</td><td>' + user.email +
+                        '</td><td>' + userRole +
+                        '</td><td>' +
+                        '<button class="btn btn-info" role="button" data-toggle="modal"' +
+                        ' data-target="#editModal" onclick="editButton(' + user.id +
+                        ', ' + user.firstName +
+                        ', ' + user.lastName +
+                        ', ' + user.age +
+                        ', ' + user.email + ')">Edit</button>' +
+                        '</td>' +
+                        '<td>' +
+                        '<button class="btn btn-danger" role="button" data-toggle="modal"' +
+                        ' data-target="#deleteModal" onclick="deleteButton(' + user.id +
+                        ', ' + user.firstName +
+                        ', ' + user.lastName +
+                        ', ' + user.age +
+                        ', ' + user.email + ')">Delete</button></td></tr>')
+                })
+            }
+        })
     }
 
     $(document).ready(function () {
@@ -330,57 +419,71 @@
     })
 
     function addNewUser() {
-        if ($('#newUserRole').val() === 'ROLE_ADMIN') {
-            $.ajax({
-                url: 'create/admin',
-                dataType: 'json',
-                method: 'POST',
-                cache: false,
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    firstName: $("#newUserFirstName").val(),
-                    lastName: $("#newUserLastName").val(),
-                    age: $("#newUserAge").val(),
-                    email: $("#newUserEmail").val(),
-                    password: $("#newUserPassword").val(),
-
-                }),
-                success: function (data) {
-                    showUsers()
-                }
-
-            })
-        } else {
-            $.ajax({
-                url: 'create/user',
-                dataType: 'json',
-                method: 'POST',
-                cache: false,
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    firstName: $("#newUserFirstName").val(),
-                    lastName: $("#newUserLastName").val(),
-                    age: $("#newUserAge").val(),
-                    email: $("#newUserEmail").val(),
-                    password: $("#newUserPassword").val()
-                }),
-                success: function (data) {
-                    showUsers()
-                }
-            })
-
-        }
-    }
-
-    function deleteUser(id) {
         $.ajax({
-            url: id,
-            method: 'DELETE',
-            success: function (){
+            url: document.getElementById('newUserRole').value,
+            dataType: 'json',
+            method: 'POST',
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                firstName: $("#newUserFirstName").val(),
+                lastName: $("#newUserLastName").val(),
+                age: $("#newUserAge").val(),
+                email: $("#newUserEmail").val(),
+                password: $("#newUserPassword").val()
+            }),
+            success: function () {
                 showUsers()
             }
         })
+    }
 
+
+    function deleteButton(id, firstName, lastName, age, email) {
+        document.getElementById("deleteUserId").placeholder = id;
+        document.getElementById("deleteUserFirstName").placeholder = firstName;
+        document.getElementById("deleteUserLastName").placeholder = lastName;
+        document.getElementById("deleteUserAge").placeholder = age;
+        document.getElementById("deleteUserEmail").placeholder = email;
+        document.getElementById("deleteConfirmButton").onclick = function () {
+            $.ajax({
+                url: id,
+                method: 'DELETE',
+                success: function () {
+                    document.getElementById("deleteUserClose").click()
+                    showUsers()
+                }
+            })
+        }
+    }
+
+    function editButton(id, firstName, lastName, age, email) {
+        document.getElementById("editUserId").value = id;
+        document.getElementById("editUserFirstName").value = firstName;
+        document.getElementById("editUserLastName").value = lastName;
+        document.getElementById("editUserAge").value = age;
+        document.getElementById("editUserEmail").value = email;
+        document.getElementById("editConfirmButton").onclick = function () {
+            $.ajax({
+                url: document.getElementById("editUserRole").value,
+                dataType: 'json',
+                method: 'PUT',
+                cache: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id: $("#editUserId").val(),
+                    firstName: $("#editUserFirstName").val(),
+                    lastName: $("#editUserLastName").val(),
+                    age: $("#editUserAge").val(),
+                    email: $("#editUserEmail").val(),
+                    password: $("#editUserPassword").val()
+                }),
+                success: function () {
+                    document.getElementById("editCloseButton").click()
+                    showUsers()
+                }
+            })
+        }
     }
 </script>
 </body>
