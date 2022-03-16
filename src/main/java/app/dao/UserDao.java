@@ -13,4 +13,5 @@ public interface UserDao {
     User getUser(Long id);
     List<User> getUsersList();
     User loadUserByUsername(String username);
+    void createAdmin(User admin);
 }

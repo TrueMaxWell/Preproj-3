@@ -1,16 +1,12 @@
 package app.dao;
 
-import app.model.Role;
 import app.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.query.Query;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -60,29 +56,8 @@ public class UserDaoImp implements UserDao {
         return (User) query.uniqueResult();
     }
 
-    @Bean
-    public void createAdmin() {
-        try {
-            loadUserByUsername("admin@mail.ru").isEnabled();
-        } catch (Exception e) {
-            Collection<Role> roles = new ArrayList<>();
-            Role roleAdmin = new Role();
-            roleAdmin.setRole("ROLE_ADMIN");
-            roles.add(roleAdmin);
-            Role roleUser = new Role();
-            roleUser.setRole("ROLE_USER");
-            roles.add(roleUser);
-            User admin = new User();
-            admin.setRoles(roles);
-            admin.setEmail("admin@mail.ru");
-            admin.setPassword("admin");
-            admin.setFirstName("admin");
-            admin.setLastName("admin");
-            admin.setAge(35L);
-            sessionFactory.getCurrentSession().saveOrUpdate(admin);
-        }
-
-
-
+    @Override
+    public void createAdmin(User admin) {
+        sessionFactory.getCurrentSession().saveOrUpdate(admin);
     }
 }

@@ -14,5 +14,6 @@ public interface UserService {
     User getUser(Long id);
     List<User> getUsersList();
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    void setRole(User user,String role);
 }
 
