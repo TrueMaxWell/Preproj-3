@@ -1,6 +1,6 @@
 package app.service;
 
-import app.dao.UserDao;
+import app.repository.UserDao;
 import app.model.Role;
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

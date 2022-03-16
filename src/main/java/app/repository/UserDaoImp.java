@@ -1,4 +1,4 @@
-package app.dao;
+package app.repository;
 
 import app.model.User;
 import org.hibernate.SessionFactory;
