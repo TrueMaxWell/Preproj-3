@@ -18,11 +18,11 @@
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#"><h4>alex112@gmail.com <small> with roles : USER</small></h4></a>
+        <a class="navbar-brand" href="#" id="header"></a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
             </ul>
-            <button class="btn btn-link" style="color: darkgray">Logout</button>
+            <button class="btn btn-link" style="color: darkgray" onclick="logout()">Logout</button>
         </div>
     </nav>
 </header>
@@ -43,7 +43,7 @@
         <!--        правый блок-->
         <!--        Table todo foreach-->
         <div class="tab-content col-10" style="background-color: ghostwhite; min-height: 900px">
-            <div class="tab-pane active" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
+            <div class="tab-pane" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
                 <br>
                 <h1>Admin panel</h1>
                 <br>
@@ -78,9 +78,7 @@
                                             <td><h5>Delete</h5></td>
                                         </tr>
                                         </thead>
-                                        <tbody id="user">
-
-                                        </tbody>
+                                        <tbody id="user"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -99,7 +97,7 @@
                                         <div class="row">
                                             <div class="col-4"></div>
                                             <input class="form-control col-4" id="newUserFirstName"
-                                                   placeholder="First name">
+                                                   placeholder="First name" required>
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
@@ -107,7 +105,7 @@
                                         <div class="row">
                                             <div class="col-4"></div>
                                             <input class="form-control col-4" id="newUserLastName"
-                                                   placeholder="Last name">
+                                                   placeholder="Last name" required>
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
@@ -115,15 +113,15 @@
                                         <div class="row">
                                             <div class="col-4"></div>
                                             <input type="number" class="form-control col-4" id="newUserAge"
-                                                   placeholder="Age">
+                                                   placeholder="Age" required>
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
                                         <label for="newUserEmail" class="form-label"><h5>Email</h5></label>
                                         <div class="row">
                                             <div class="col-4"></div>
-                                            <input type="email" class="form-control col-4" id="newUserEmail"
-                                                   placeholder="Email">
+                                            <input type="submit" class="form-control col-4" id="newUserEmail" name="email"
+                                                   placeholder="Email" required>
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
@@ -131,14 +129,14 @@
                                         <div class="row">
                                             <div class="col-4"></div>
                                             <input type="password" class="form-control col-4" id="newUserPassword"
-                                                   placeholder="Password">
+                                                   placeholder="Password" required>
                                             <div class="col-4"></div>
                                         </div>
                                         <br>
                                         <label for="newUserRole"><h5>Role</h5></label>
                                         <div class="row">
                                             <div class="col-4"></div>
-                                            <select multiple class="form-control col-4" id="newUserRole" size="2">
+                                            <select multiple class="form-control col-4" id="newUserRole" size="2" required>
                                                 <option value="ROLE_ADMIN">ADMIN</option>
                                                 <option value="ROLE_USER">USER</option>
                                             </select>
@@ -179,16 +177,7 @@
                                     <td><h5>Role</h5></td>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Alex</td>
-                                    <td>Adams</td>
-                                    <td>25</td>
-                                    <td>alex112@gmail.com</td>
-                                    <td>USER</td>
-                                </tr>
-                                </tbody>
+                                <tbody id="currentUser"></tbody>
                             </table>
                         </div>
                     </div>
@@ -413,9 +402,48 @@
         })
     }
 
+    function showCurrentUser() {
+        var userTable = $('#currentUser');
+        var adminTab = $('#v-pills-admin-tab');
+        var userTab = $('#v-pills-admin-user-tab')
+        var userInfo = $('#v-pills-admin-user')
+        var allUsers = $('#v-pills-admin')
+        var header = $('#header')
+        $.ajax({
+            type: 'GET',
+            url: 'get/current',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (user) {
+                console.log("Data connected!", user);
+                userTable.empty();
+                var userRole;
+                if (user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
+                    userRole = "ADMIN USER"
+                    allUsers.addClass("active")
+                    adminTab.addClass("active")
+                    showUsers()
+                } else {
+                    userRole = "USER"
+                    adminTab.removeClass("active").hide()
+                    userTab.addClass("active")
+                    userInfo.addClass("active")
+                }
+                header.append('<h4>' + user.email + '<small> with roles : ' + userRole + '</small></h4>');
+                userTable.append('<tr><td>' + user.id +
+                    '</td><td>' + user.firstName +
+                    '</td><td>' + user.lastName +
+                    '</td><td>' + user.age +
+                    '</td><td>' + user.email +
+                    '</td><td>' + userRole +
+                    '</td></tr>');
+            }
+        })
+    }
+
     $(document).ready(function () {
         console.log("Ready!")
-        showUsers();
+        showCurrentUser();
     })
 
     function addNewUser() {
@@ -484,6 +512,10 @@
                 }
             })
         }
+    }
+
+    function logout() {
+        window.location.href = 'http://localhost:8080/logout';
     }
 </script>
 </body>

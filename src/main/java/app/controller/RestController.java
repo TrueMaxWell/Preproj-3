@@ -19,21 +19,20 @@ public class RestController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-//    @ResponseBody
+    @GetMapping("admin/get")
     public List<User> list() {
         return userService.getUsersList();
     }
 
-    @GetMapping("/get/currentUser")
+    @GetMapping({"admin/get/current", "user/get/current"})
     public User getUserInfo() {
         return (User) userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
-    @PostMapping("{role}")
+    @PostMapping("admin/{role}")
     public void create(@RequestBody User user, @PathVariable String role) {
         Collection<Role> roles = new ArrayList<>();
-        if (Objects.equals(role, "ADMIN_USER")) {
+        if (Objects.equals(role, "ROLE_ADMIN")) {
             Role roleAdmin = new Role();
             roleAdmin.setRole("ROLE_ADMIN");
             roles.add(roleAdmin);
@@ -45,10 +44,10 @@ public class RestController {
         userService.add(user);
     }
 
-    @PutMapping("{role}")
+    @PutMapping("admin/{role}")
     public User update(@RequestBody User user, @PathVariable String role) {
         Collection<Role> roles = new ArrayList<>();
-        if (Objects.equals(role, "ADMIN_USER")) {
+        if (Objects.equals(role, "ROLE_ADMIN")) {
             Role roleAdmin = new Role();
             roleAdmin.setRole("ROLE_ADMIN");
             roles.add(roleAdmin);
@@ -61,7 +60,7 @@ public class RestController {
         return user;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("admin/{id}")
     public void delete(@PathVariable String id){
         userService.removeUser(Long.valueOf(id));
     }
