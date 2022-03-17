@@ -1,17 +1,20 @@
 package app.repository;
 
 import app.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserDao {
-    void add(User user);
-    void removeUser(Long id);
-    void changeUser(User user);
-    User getUser(Long id);
+public interface UserDao extends JpaRepository<User, Long> {
+
+    @Query("from User")
     List<User> getUsersList();
-    User loadUserByUsername(String username);
-    void createAdmin(User admin);
+
+    @Query("from User where email = :email")
+    User loadUserByUsername(@Param("email") String username);
+
 }

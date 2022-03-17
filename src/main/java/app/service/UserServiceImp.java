@@ -25,22 +25,22 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Transactional
     @Override
     public void add(User user) {
-        userDao.add(user);
+        userDao.save(user);
     }
 
     @Override
     public void removeUser(Long id) {
-        userDao.removeUser(id);
+        userDao.deleteById(id);
     }
 
     @Override
     public void changeUser(User user) {
-        userDao.changeUser(user);
+        userDao.save(user);
     }
 
     @Override
     public User getUser(Long id) {
-        return userDao.getUser(id);
+        return userDao.getById(id);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
             admin.setFirstName("admin");
             admin.setLastName("admin");
             admin.setAge(35L);
-            userDao.createAdmin(admin);
+            userDao.save(admin);
         }
     }
 
