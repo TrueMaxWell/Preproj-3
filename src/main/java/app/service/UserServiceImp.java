@@ -45,13 +45,12 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Override
     public List<User> getUsersList() {
-        return userDao.getUsersList();
+        return userDao.findAll();
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.loadUserByUsername(username);
-        return user;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userDao.findByEmail(email);
     }
 
     @PostConstruct

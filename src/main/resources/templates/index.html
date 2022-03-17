@@ -291,11 +291,10 @@
                 console.log("Data connected!", users)
                 table.empty()
                 var userRole;
-                var userinfo;
 
                 $.each(users, function (i, user) {
                     if (user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
-                        userRole = 'ADMIN_USER'
+                        userRole = 'ADMIN USER'
                     } else {
                         userRole = 'USER'
                     }
@@ -394,7 +393,6 @@
                 url: id,
                 method: 'DELETE',
                 success: function () {
-                    document.getElementById("deleteUserClose").click()
                     showUsers()
                 }
             })
@@ -423,7 +421,6 @@
                     password: $("#editUserPassword").val()
                 }),
                 success: function () {
-                    document.getElementById("editCloseButton").click()
                     showUsers()
                 }
             })
