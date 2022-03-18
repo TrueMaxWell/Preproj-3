@@ -180,9 +180,11 @@
                 </button>
             </div>
             <div class="modal-body row">
-                <div class="col-3"></div>
+                <div class="col-3" ></div>
                 <form class="col-6" id="editForm" name="editForm">
                     <div class="form-group text-center" id="editFormGroup">
+                        <div id="editPhoto"></div>
+                        <br>
                         <label for="editUserId" class="form-label"><h5>ID</h5></label>
                         <fieldset disabled>
                             <input type="number" class="form-control" id="editUserId" placeholder="ID" required>
@@ -429,6 +431,7 @@
         document.getElementById("editUserAge").value = document.getElementById("AgeValue" + id).innerText;
         document.getElementById("editUserEmail").value = document.getElementById("EmailValue" + id).innerText;
         document.getElementById("editUserVkId").value = document.getElementById("VkIdValue" + id).innerText;
+        getVkPhoto(document.getElementById("VkIdValue" + id).innerText, $('#editPhoto'))
         document.getElementById("editForm").onsubmit = function () {
             $.ajax({
                 url: document.getElementById("editUserRole").value,
