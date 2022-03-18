@@ -65,7 +65,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Override
     public String getVkInfo(String vkId) throws ClientException {
-        return vk.users().get(actor).userIds(vkId).fields(Fields.PHOTO_50).executeAsString();
+        return vk.users().get(actor).userIds(vkId).fields(Fields.PHOTO_50, Fields.PHOTO_100).executeAsString();
     }
 
     @PostConstruct

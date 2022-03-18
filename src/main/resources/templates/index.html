@@ -331,7 +331,7 @@
                         '<td>' +
                         '<button class="btn btn-danger" role="button" data-toggle="modal"' +
                         ' data-target="#deleteModal" onclick="deleteButton(' + user.id + ')">Delete</button></td></tr>')
-                    getVkPhoto(user.vkId, $('#tableUserPhoto' + user.id))
+                    getVkPhoto(user.vkId, $('#tableUserPhoto' + user.id), 50)
                 })
             }
         })
@@ -373,7 +373,7 @@
                     '</td><td>' + userRole +
                     '</td><td>' + user.vkId +
                     '</td></tr>');
-                getVkPhoto(user.vkId, $('#userPhoto'))
+                getVkPhoto(user.vkId, $('#userPhoto'), 50)
             }
         })
     }
@@ -425,13 +425,15 @@
     }
 
     function editButton(id) {
+        var photo = $('#editPhoto')
         document.getElementById("editUserId").value = document.getElementById("IdValue" + id).innerText;
         document.getElementById("editUserFirstName").value = document.getElementById("FirstNameValue" + id).innerText;
         document.getElementById("editUserLastName").value = document.getElementById("LastNameValue" + id).innerText;
         document.getElementById("editUserAge").value = document.getElementById("AgeValue" + id).innerText;
         document.getElementById("editUserEmail").value = document.getElementById("EmailValue" + id).innerText;
         document.getElementById("editUserVkId").value = document.getElementById("VkIdValue" + id).innerText;
-        getVkPhoto(document.getElementById("VkIdValue" + id).innerText, $('#editPhoto'))
+        photo.empty()
+        getVkPhoto(document.getElementById("VkIdValue" + id).innerText, photo, 100)
         document.getElementById("editForm").onsubmit = function () {
             $.ajax({
                 url: document.getElementById("editUserRole").value,
@@ -457,14 +459,20 @@
 
 
 
-    function getVkPhoto(vkId, place) {
+    function getVkPhoto(vkId, place, size) {
         $.ajax({
             type: 'GET',
             url: 'getVkInfo/' + vkId,
             dataType: 'json',
             contentType: 'application/json',
             success: function (img) {
-                place.append('<img src="' + img.response[0].photo_50 + '">')
+                if (size === 50) {
+                    place.append('<img src="' + img.response[0].photo_50 + '">')
+                }
+                if (size === 100) {
+                    place.append('<img src="' + img.response[0].photo_100 + '">')
+                }
+
             }
         })
     }
