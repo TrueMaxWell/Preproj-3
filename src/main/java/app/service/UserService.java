@@ -1,6 +1,7 @@
 package app.service;
 
 import app.model.User;
+import com.vk.api.sdk.exceptions.ClientException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -14,6 +15,7 @@ public interface UserService {
     User getUser(Long id);
     List<User> getUsersList();
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    String getVkInfo(String vkId) throws ClientException ;
     void setRole(User user,String role);
 }
 

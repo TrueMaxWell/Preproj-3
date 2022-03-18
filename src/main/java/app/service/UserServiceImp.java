@@ -3,6 +3,12 @@ package app.service;
 import app.repository.UserDao;
 import app.model.Role;
 import app.model.User;
+import com.vk.api.sdk.client.VkApiClient;
+import com.vk.api.sdk.client.actors.ServiceActor;
+import com.vk.api.sdk.exceptions.ApiException;
+import com.vk.api.sdk.exceptions.ClientException;
+import com.vk.api.sdk.httpclient.HttpTransportClient;
+import com.vk.api.sdk.objects.users.Fields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +24,10 @@ import java.util.Objects;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
+
+    VkApiClient vk = new VkApiClient(new HttpTransportClient());
+    ServiceActor actor = new ServiceActor(	8106696,
+            "2f3cd5ce2f3cd5ce2f3cd5ce7a2f47670622f3c2f3cd5ce4d0f045e47a7ff36bfc6ff06");
 
     @Autowired
     private UserDao userDao;
@@ -53,6 +63,11 @@ public class UserServiceImp implements UserDetailsService, UserService {
         return userDao.findByEmail(email);
     }
 
+    @Override
+    public String getVkInfo(String vkId) throws ClientException {
+        return vk.users().get(actor).userIds(vkId).fields(Fields.PHOTO_50).executeAsString();
+    }
+
     @PostConstruct
     public void createAdmin() {
         try {
@@ -72,6 +87,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
             admin.setFirstName("admin");
             admin.setLastName("admin");
             admin.setAge(35L);
+            admin.setVkId("maxwell25");
             userDao.save(admin);
         }
     }

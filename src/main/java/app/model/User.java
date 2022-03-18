@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @Column(name = "age")
     private Long age;
 
+    @Column(name = "vkId")
+    private String vkId;
+
     @JsonIgnore
     @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
