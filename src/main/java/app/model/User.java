@@ -34,7 +34,10 @@ public class User implements UserDetails {
     private Long age;
 
     @Column(name = "vkId")
-    private String vkId;
+    private Integer vkId;
+
+    @Column(name = "role")
+    private String role;
 
     @JsonIgnore
     @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
