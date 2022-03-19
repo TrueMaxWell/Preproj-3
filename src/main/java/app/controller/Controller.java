@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.service.UserService;
+import app.vk.VkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,7 +12,7 @@ public class Controller {
     UserService userService;
 
     @Autowired
-    app.vk.vkService vkService;
+    VkService vkService;
 
     @GetMapping({"/admin", "/user"})
     public String getUserPage() {

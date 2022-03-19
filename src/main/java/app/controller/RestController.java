@@ -2,7 +2,7 @@ package app.controller;
 
 import app.model.User;
 import app.service.UserService;
-import app.vk.vkService;
+import app.vk.VkService;
 import com.vk.api.sdk.exceptions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ public class RestController {
     UserService userService;
 
     @Autowired
-    vkService vkService;
+    VkService vkService;
 
     @GetMapping("admin/get")
     public List<User> list() {

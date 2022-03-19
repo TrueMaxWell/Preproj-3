@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class vkService {
+public class VkService {
 
     @Autowired
     UserService userService;
