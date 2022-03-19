@@ -21,6 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
             </ul>
+            <button class="btn btn-link" style="color: darkkhaki" id="requestsButton" onclick="getRequestsPage()">Requests</button>
             <button class="btn btn-link" style="color: darkgray" onclick="logout()">Logout</button>
         </div>
     </nav>
@@ -156,6 +157,7 @@
                                     <td><h5>Email</h5></td>
                                     <td><h5>Role</h5></td>
                                     <td><h5>Vk id</h5></td>
+                                    <td></td>
                                 </tr>
                                 </thead>
                                 <tbody id="currentUser"></tbody>
@@ -298,6 +300,13 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script type="text/javascript">
+    var firstName;
+    var lastName;
+    var age;
+    var email;
+    var password;
+    var vkId;
+
     function showUsers() {
         var table = $('#user');
         $.ajax({
@@ -311,9 +320,13 @@
                 var userRole;
 
                 $.each(users, function (i, user) {
-                    if (user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
+                    if (user.authorities[0].role === 'ROLE_ADMIN') {
                         userRole = 'ADMIN USER'
-                    } else {
+                    }
+                    if (user.authorities[0].role === 'ROLE_REQUEST') {
+                        userRole = 'REQUEST USER'
+                    }
+                    if (user.authorities[0].role === 'ROLE_USER') {
                         userRole = 'USER'
                     }
                     table.append('<tr><td id="tableUserPhoto' + user.id + '">' +
@@ -344,6 +357,7 @@
         var userInfo = $('#v-pills-admin-user')
         var allUsers = $('#v-pills-admin')
         var header = $('#header')
+        var requestsButton = $('#requestsButton')
         $.ajax({
             type: 'GET',
             url: 'get/current',
@@ -353,26 +367,49 @@
                 console.log("Data connected!", user);
                 userTable.empty();
                 var userRole;
-                if (user.authorities[0].role === 'ROLE_ADMIN' && user.authorities[1].role === 'ROLE_USER') {
+                if (user.authorities[0].role === 'ROLE_ADMIN') {
                     userRole = "ADMIN USER"
                     allUsers.addClass("active")
                     adminTab.addClass("active")
                     showUsers()
-                } else {
+                }
+                if (user.authorities[0].role === 'ROLE_REQUEST') {
+                    userRole = "REQUEST USER"
+                    adminTab.removeClass("active").hide()
+                    userTab.addClass("active")
+                    userInfo.addClass("active")
+                    requestsButton.hide()
+                }
+                if (user.authorities[0].role === 'ROLE_USER') {
                     userRole = "USER"
                     adminTab.removeClass("active").hide()
                     userTab.addClass("active")
                     userInfo.addClass("active")
+                    requestsButton.hide()
                 }
+                firstName = user.firstName
+                lastName = user.lastName
+                age = user.age
+                email = user.email
+                password = user.password
+                vkId = user.vkId
+                var requestButton = '<td></td>';
+                if (user.authorities[0].role === 'ROLE_USER') {
+                    requestButton = '<td><button class="btn btn-info" id="requestButton" role="button" ' +
+                        'onclick="adminRequest(' + user.id + ', firstName,lastName,age,email,password,vkId)">Request Admin Role</button>'
+                }
+                header.empty()
+                userTable.empty()
                 header.append('<h4>' + user.email + '<small> with roles : ' + userRole + '</small></h4>');
-                userTable.append('<tr><td id="userPhoto"></td><td>' + user.id +
-                    '</td><td>' + user.firstName +
-                    '</td><td>' + user.lastName +
-                    '</td><td>' + user.age +
-                    '</td><td>' + user.email +
-                    '</td><td>' + userRole +
-                    '</td><td>' + user.vkId +
-                    '</td></tr>');
+                userTable.append('<tr><td id="userPhoto">' +
+                    '</td><td id="currentUserId">' + user.id +
+                    '</td><td id="currentUserFirstName">' + user.firstName +
+                    '</td><td id="currentUserLastName">' + user.lastName +
+                    '</td><td id="currentUserAge">' + user.age +
+                    '</td><td id="currentUserEmail">' + user.email +
+                    '</td><td id="currentUserRole">' + userRole +
+                    '</td><td id="currentUserVkId">' + user.vkId +
+                    '</td>' + requestButton + '</tr>');
                 getVkPhoto(user.vkId, $('#userPhoto'), 50)
             }
         })
@@ -457,7 +494,25 @@
         };
     }
 
-
+    function adminRequest(id, firstName, lastName, age, email, password, vkId) {
+        $.ajax({
+            url: "ROLE_REQUEST",
+            dataType: 'json',
+            method: 'PUT',
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: id,
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                email: email,
+                password: password,
+                vkId: vkId
+            }),
+            success: $('#requestButton').hide()
+        })
+    }
 
     function getVkPhoto(vkId, place, size) {
         $.ajax({
@@ -475,6 +530,10 @@
 
             }
         })
+    }
+
+    function getRequestsPage() {
+        window.location.href = 'http://localhost:8080/requests';
     }
 
     function logout() {

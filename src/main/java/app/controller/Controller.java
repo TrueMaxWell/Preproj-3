@@ -4,13 +4,14 @@ import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletRequest;
-
 @org.springframework.stereotype.Controller
 public class Controller {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    app.vk.vkService vkService;
 
     @GetMapping({"/admin", "/user"})
     public String getUserPage() {
@@ -18,19 +19,23 @@ public class Controller {
     }
 
     @GetMapping({"login", "/"})
-    public String getLoginPage(HttpServletRequest request) {
-        System.out.println(request.getHeader("access_token_211876865"));
+    public String getLoginPage() {
         return "login";
+    }
+
+    @GetMapping("/requests")
+    public String getRequestsPage() {
+        return "requests";
     }
 
     @GetMapping("/getVkGroupToken")
     public String getVkGroupToken() {
-        return "redirect:" + userService.getVkGroupToken();
+        return "redirect:" + vkService.getVkGroupToken();
     }
 
     @GetMapping("/getVkUserToken")
     public String getVkUserToken() {
-        return "redirect:" + userService.getVkUserToken();
+        return "redirect:" + vkService.getVkUserToken();
     }
 
 
